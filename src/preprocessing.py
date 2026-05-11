@@ -8,14 +8,19 @@ def load_data(file_path):
 
 
 def clean_data(df):
-    """Handle missing values and duplicates"""
-    df = df.drop_duplicates()
+    df = df.copy()
 
-    for col in df.columns:
-        if df[col].dtype == "object":
-            df[col] = df[col].fillna(df[col].mode()[0])
-        else:
-            df[col] = df[col].fillna(df[col].median())
+    # split columns properly
+    numeric_cols = df.select_dtypes(include=["number"]).columns
+    categorical_cols = df.select_dtypes(include=["object"]).columns
+
+    # fill numeric columns safely
+    for col in numeric_cols:
+        df[col] = df[col].fillna(df[col].median())
+
+    # fill categorical columns safely
+    for col in categorical_cols:
+        df[col] = df[col].fillna(df[col].mode()[0])
 
     return df
 
