@@ -40,7 +40,7 @@ mental-health-unsupervised-learning/
 
 #Technologies used
 -python
--Pnadas and NumPy
+-Pandas and NumPy
 -Scikit-Learn
 -Matplotlib and Seaborn
 -Jupytter Notebook
